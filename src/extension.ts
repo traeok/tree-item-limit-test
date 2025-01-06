@@ -5,6 +5,8 @@ export function activate(_context: vscode.ExtensionContext) {
 	return { testTree };
 }
 
+const CHARS = [...new Array(26).fill(0).map((_v, i) => String.fromCharCode(i + 65)), ...new Array(26).fill(0).map((_v, i) => String.fromCharCode(i + 97))];
+
 class TreeDataProvider implements vscode.TreeDataProvider<TreeItem> {
   public onDidChangeTreeData?: vscode.Event<TreeItem | null | undefined> | undefined;
   private data: TreeItem[] = [];
@@ -18,8 +20,8 @@ class TreeDataProvider implements vscode.TreeDataProvider<TreeItem> {
   }
 
   private generateSeveralNodes(): void {
-	this.data = new Array(10).fill(0).map((_v, i) => {
-		const outer = String.fromCharCode(i + 97);
+	this.data = new Array(52).fill(0).map((_v, i) => {
+		const outer = CHARS[i];
 		return new TreeItem(outer, new Array(100000).fill(0).map((_v, x) => {
 			return new TreeItem(`${outer}${String(x)}`);
 		}));
